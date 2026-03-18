@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      NEOCITIES_USERNAME: ${{ secrets.NEOCITIES_USERNAME }}
+      NEOCITIES_API_TOKEN: ${{ secrets.NEOCITIES_API_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/checkout@v4
 
       - name: Build public folder
