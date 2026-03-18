@@ -13,15 +13,21 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Prepare website dist
         run: |
           rm -rf public
           mkdir public
           rsync -av --exclude='.git' --exclude='.github' --exclude='public' --exclude='.neocitiesignore' --exclude='.github/workflows' ./ public/
 
+      - name: Inspect artifacts before deploy
+        run: |
+          echo "public content summary"
+          find public -maxdepth 3 -type f | head -n 100
+          du -sh public
+
       - name: Deploy to neocities
-        uses: bcomnes/deploy-to-neocities@v1
+        uses: bcomnes/deploy-to-neocities@v2
         with:
           api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
           cleanup: true
