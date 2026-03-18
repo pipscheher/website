@@ -29,6 +29,6 @@ jobs:
       - name: Deploy to neocities via CLI
         run: |
           ls -la public
-          neocities-cli push public --username "$NEOCITIES_USERNAME" --api-key "$NEOCITIES_API_TOKEN"
-          neocities-cli info --username "$NEOCITIES_USERNAME" --api-key "$NEOCITIES_API_TOKEN"
+          neocities-cli push public --username "$NEOCITIES_USERNAME" --password "$NEOCITIES_API_TOKEN"
+          neocities-cli info --username "$NEOCITIES_USERNAME" --password "$NEOCITIES_API_TOKEN"
 
