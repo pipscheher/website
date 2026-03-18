@@ -14,23 +14,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare website dist
+      - uses: actions/checkout@v4
+
+      - name: Build public folder
         run: |
           rm -rf public
           mkdir public
-          rsync -av --exclude='.git' --exclude='.github' --exclude='public' --exclude='.neocitiesignore' --exclude='.github/workflows' ./ public/
+          rsync -av --exclude='.git' --exclude='.github' --exclude='.neocitiesignore' ./ public/
 
-      - name: Inspect artifacts before deploy
-        run: |
-          echo "public content summary"
-          find public -maxdepth 3 -type f | head -n 100
-          du -sh public
-
-      - name: Install neocities CLI
+      - name: Install neocities-cli
         run: npm install -g neocities-cli
 
       - name: Deploy to neocities via CLI
         run: |
           ls -la public
           neocities-cli push public --username "$NEOCITIES_USERNAME" --api-key "$NEOCITIES_API_TOKEN"
+          neocities-cli info --username "$NEOCITIES_USERNAME" --api-key "$NEOCITIES_API_TOKEN"
 
