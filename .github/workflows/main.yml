@@ -26,10 +26,11 @@ jobs:
           find public -maxdepth 3 -type f | head -n 100
           du -sh public
 
-      - name: Deploy to neocities
-        uses: bcomnes/deploy-to-neocities@v2
-        with:
-          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: true
-          dist_dir: public
+      - name: Install neocities CLI
+        run: npm install -g neocities
+
+      - name: Deploy to neocities via CLI
+        run: |
+          ls -la public
+          neocities push public --username "$NEOCITIES_USERNAME" --api-key "$NEOCITIES_API_TOKEN"
 
