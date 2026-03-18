@@ -27,7 +27,7 @@ jobs:
           du -sh public
 
       - name: Install neocities CLI
-        run: npm install -g neocities
+        run: npm install -g neocities-cli
 
       - name: Deploy to neocities via CLI
         run: |
